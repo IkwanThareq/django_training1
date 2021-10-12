@@ -18,6 +18,21 @@ monthly_challanges = {
 
 }
 
+monthly_title = {
+    "january": "January challenge",
+    "february": "february challenge",
+    "march": "march challenge",
+    "april": "april challenge",
+    "may": "may challenge",
+    "june": "june challenge",
+    "july": "july challenge",
+    "august": "august challenge",
+    "september": "september challenge",
+    "october": "october challenge",
+    "november": "november challenge",
+    "december": "december challenge",
+}
+
 # Create your views here.
 
 def index(request):
@@ -52,8 +67,14 @@ def monthly_challange_by_number(request, month):
 def monthly_challange(request, month):
     try:
         challange_text = monthly_challanges[month]
-        response_data = f"<h1>{challange_text}</h1>"
-        return HttpResponse(response_data)
+        tantangan_text = monthly_title[month]
+        # code bellow is how to render a html file
+        return render(request, "challenges/challenge.html", {
+            "tittle": month.capitalize(),
+            "text": challange_text
+        })
+        # response_data = render_to_string("challenges/challenge.html")
+        # return HttpResponsse(response_data)
     except:
         return HttpResponseNotFound("<h1>This month is not supported !</hq>")
     
